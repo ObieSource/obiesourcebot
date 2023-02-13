@@ -17,5 +17,5 @@ venv/bin/pip3 install -r requirements.txt
 - Start the bot in the following way
 
 ```bash
-venv/bin/python3 main.py <SECRET TOKEN>
+./obiesourcebot <SECRET TOKEN>
 ```

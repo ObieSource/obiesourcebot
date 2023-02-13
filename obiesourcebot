@@ -1,7 +1,9 @@
+#!venv/bin/python3
+
 import sys
 
 if len(sys.argv) < 2:
-    print("python main.py <TOKEN ID>")
+    print(f"{sys.argv[0]} <TOKEN ID>")
     sys.exit(1)
 
 token = sys.argv[1]
