@@ -1,12 +1,14 @@
 #!venv/bin/python3
 
-import sys
+import sys, os
 
-if len(sys.argv) < 2:
-    print(f"{sys.argv[0]} <TOKEN ID>")
+envKey = "OBIESOURCEBOTTOKEN"
+
+token = os.environ.get(envKey)
+
+if token == None: # not defined
+    print(f"{envKey}=<secret token> {sys.argv[0]}")
     sys.exit(1)
-
-token = sys.argv[1]
 
 import discord
 

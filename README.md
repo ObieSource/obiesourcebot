@@ -14,8 +14,8 @@ venv/bin/pip3 install -r requirements.txt
 
 - From the discord developer portal, add the bot to a discord guild by generating a URL. Note that you do not need to award the bot any permissions such as "Administrator", "Send messages", etc.
 
-- Start the bot in the following way
+- Start the bot using the environment variable OBIESOURCEBOTTOKEN containing the secret token.
 
 ```bash
-./obiesourcebot <SECRET TOKEN>
+OBIESOURCEBOTTOKEN=<secret token> ./obiesourcebot
 ```
