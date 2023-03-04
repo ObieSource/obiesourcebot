@@ -20,4 +20,8 @@ async def resources(ctx):
 async def hello(ctx, name: str = None, color: str = None):
     await ctx.respond(f"Hello, {name}! Your favorite color is {color}.")
 
+@bot.slash_command()
+async def pronoun_picker(ctx):
+    await ctx.respond("Hello Person.")
+
 bot.run(token)
