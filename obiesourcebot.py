@@ -1,16 +1,10 @@
 #!venv/bin/python3
 
 import sys, os
-
-envKey = "OBIESOURCEBOTTOKEN"
-
-token = os.environ.get(envKey)
-
-if token == None: # not defined
-    print(f"{envKey}=<secret token> {sys.argv[0]}")
-    sys.exit(1)
-
+import config
 import discord
+
+token = config.BOT_TOKEN
 
 bot = discord.Bot()
 
