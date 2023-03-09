@@ -12,6 +12,7 @@ bot = discord.Bot()
 # --------------------
 # COMMANDS
 # --------------------
+initialize_pronouns("pronouns.txt")
 
 @bot.slash_command()
 async def resources(ctx):
