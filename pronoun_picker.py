@@ -49,7 +49,7 @@ def change_existing_pronouns(file_name, user_ID, pronouns):
 
 #This is a visual class that inherits from discord.ui.view
 #It has a specific format and is required when working with dropdown menus
-class PronounButtens(discord.ui.View):
+class PronounButtons(discord.ui.View):
 
     @discord.ui.select(
         placeholder = "Pick a pronoun", #The text displayed when nothing has been selected
