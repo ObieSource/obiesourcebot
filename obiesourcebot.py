@@ -49,6 +49,65 @@ def change_existing_pronouns(file_name, user_ID, pronouns):
 # COMMANDS
 # --------------------
 
+class PronounButtens(discord.ui.View):
+
+    @discord.ui.select(
+        placeholder = "Pick a pronoun", #The text displayed when nothing has been selected
+        min_values = 1, #The minimum amount of items that can be selected
+        max_values = 1, #The maximum amount of items that can be selected
+        options = [
+            discord.SelectOption(
+                label="He/Him"
+            ),
+            discord.SelectOption(
+                label="He/They"
+            ),
+            discord.SelectOption(
+                label="They/He"
+            ),
+            discord.SelectOption(
+                label="They/Them"
+            ),
+            discord.SelectOption(
+                label="They/She"
+            ),
+            discord.SelectOption(
+                label="She/They"
+            ),
+            discord.SelectOption(
+                label="She/Her"
+            )
+        ]
+    )
+
+    async def select_callback(self, select, interaction):
+        pronoun = select.values[0]
+         #This will be set to the users place in the pronoun list
+        place_in_pronouns = -1
+        author_id = str(interaction.user.id)
+        for i in range(len(pronouns)):
+            if author_id == pronouns[i][0]:
+                place_in_pronouns = i
+
+        if place_in_pronouns == -1:
+            pronouns.append([author_id, pronoun])
+            add_pronouns("pronouns.txt", author_id, pronoun)
+        else:
+            pronouns[i][1] = pronoun
+            change_existing_pronouns("pronouns.txt", author_id, pronoun)
+
+
+        if pronoun == None:
+            await interaction.response.send_message("Your pronouns were set to None. I shall not refer to you.")
+        else:
+            await interaction.response.send_message(f"Hello {interaction.user.name}!. I will refer to you as {pronoun}.")
+
+
+
+
+        
+
+
 @bot.slash_command()
 async def resources(ctx):
     await ctx.respond("resource stuff here")
@@ -59,7 +118,9 @@ async def hello(ctx, name: str = None, color: str = None):
 
 @bot.slash_command()
 async def pronoun_picker(ctx, pronoun: str = None):
-    #This will be set to the users place in the pronoun list
+    button_view = PronounButtens()
+    await ctx.respond("Choose your fighter!", view=button_view)
+    """#This will be set to the users place in the pronoun list
     place_in_pronouns = -1
     author_id = str(ctx.author.id)
     for i in range(len(pronouns)):
@@ -77,7 +138,7 @@ async def pronoun_picker(ctx, pronoun: str = None):
     if pronoun == None:
         await ctx.respond("Your pronouns were set to None. I shall not refer to you.")
     else:
-        await ctx.respond(f"Hello {ctx.author.name}!. I will refer to you as {pronoun}.")
+        await ctx.respond(f"Hello {ctx.author.name}!. I will refer to you as {pronoun}.")"""
 
 
 initialize_pronouns("pronouns.txt")
