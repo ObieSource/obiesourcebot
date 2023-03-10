@@ -5,7 +5,7 @@ import config
 import discord
 
 token = config.BOT_TOKEN
-#A list of all pronouns. The first indecy refers to a user. The second indicy will be of size 2 where 0 is the username and 1 is the pronoun.
+#A list of all pronouns. The first indecy refers to a user. The second indicy will be of size 2 where 0 is the user id and 1 is the pronoun.
 pronouns = []
 
 bot = discord.Bot()
@@ -19,18 +19,18 @@ def initialize_pronouns(file_name):
     lines = file.readlines()
     for i in range (len(lines)):
         line = lines[i].split(" ")
-        #appends a new array on to pronouns with the username (stored in line[0]) and pronouns (stored in line[1])
+        #appends a new array on to pronouns with the user id (stored in line[0]) and pronouns (stored in line[1])
         pronouns.append([line[0], line[1]])
         pronouns[i][1] = line[1]
     file.close()
 
-def add_pronouns(file_name, username, pronouns):
+def add_pronouns(file_name, user_ID, pronouns):
     #Opens the file in append mode
     file = open(file_name, "a+")
-    file.writelines([f"{username} {pronouns}\n"])
+    file.writelines([f"{user_ID} {pronouns}\n"])
     file.close()
 
-def change_existing_pronouns(file_name, username, pronouns):
+def change_existing_pronouns(file_name, user_ID, pronouns):
     #Opens the readable version of the file to get its lines
     file = open(file_name)
     lines = file.readlines()
@@ -40,8 +40,8 @@ def change_existing_pronouns(file_name, username, pronouns):
     file = open(file_name, "w")
 
     for i in range (len(lines)):
-        if lines[i].__contains__(username):
-            lines[i] = f"{username} {pronouns}"
+        if lines[i].__contains__(user_ID):
+            lines[i] = f"{user_ID} {pronouns}"
     file.writelines(lines)
 
 
@@ -61,16 +61,17 @@ async def hello(ctx, name: str = None, color: str = None):
 async def pronoun_picker(ctx, pronoun: str = None):
     #This will be set to the users place in the pronoun list
     place_in_pronouns = -1
+    author_id = str(ctx.author.id)
     for i in range(len(pronouns)):
-        if ctx.author.name == pronouns[i][0]:
+        if author_id == pronouns[i][0]:
             place_in_pronouns = i
 
     if place_in_pronouns == -1:
-        pronouns.append({ctx.author.name, pronoun})
-        add_pronouns("pronouns.txt", ctx.author.name, pronoun)
+        pronouns.append([author_id, pronoun])
+        add_pronouns("pronouns.txt", author_id, pronoun)
     else:
         pronouns[i][1] = pronoun
-        change_existing_pronouns("pronouns.txt", ctx.author.name, pronoun)
+        change_existing_pronouns("pronouns.txt", author_id, pronoun)
 
 
     if pronoun == None:
