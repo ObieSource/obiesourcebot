@@ -17,5 +17,5 @@ venv/bin/pip3 install -r requirements.txt
 - Start the bot using the environment variable OBIESOURCEBOTTOKEN containing the secret token.
 
 ```bash
-OBIESOURCEBOTTOKEN=<secret token> ./obiesourcebot
+OBIESOURCEBOTTOKEN=<secret token> ./obiesourcebot.py
 ```
