@@ -1,1 +1,4 @@
 venv
+config.py
+cert.pem
+__pycache__/
