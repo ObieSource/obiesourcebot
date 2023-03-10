@@ -6,7 +6,6 @@ import discord
 
 token = config.BOT_TOKEN
 #A list of all pronouns. The first indecy refers to a user. The second indicy will be of size 2 where 0 is the user id and 1 is the pronoun.
-pronouns = []
 
 bot = discord.Bot()
 
@@ -41,7 +40,7 @@ def change_existing_pronouns(file_name, user_ID, pronouns):
 
     for i in range (len(lines)):
         if lines[i].__contains__(user_ID):
-            lines[i] = f"{user_ID} {pronouns}"
+            lines[i] = f"{user_ID} {pronouns}\n"
     file.writelines(lines)
 
 # ---------------------
@@ -121,6 +120,7 @@ async def pronoun_picker(ctx):
     button_view = PronounButtens()
     await ctx.respond("Choose your pronouns!", view=button_view)
 
+pronouns = []
 initialize_pronouns("pronouns.txt")
 
 bot.run(token)
