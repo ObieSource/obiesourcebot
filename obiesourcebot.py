@@ -44,11 +44,12 @@ def change_existing_pronouns(file_name, user_ID, pronouns):
             lines[i] = f"{user_ID} {pronouns}"
     file.writelines(lines)
 
+# ---------------------
+# Classes
+# ---------------------
 
-# --------------------
-# COMMANDS
-# --------------------
-
+#This is a visual class that inherits from discord.ui.view
+#It has a specific format and is required when working with dropdown menus
 class PronounButtens(discord.ui.View):
 
     @discord.ui.select(
@@ -80,6 +81,7 @@ class PronounButtens(discord.ui.View):
         ]
     )
 
+    #This is a specific method with a specific signature that runs when a dropdown menu option has been selected
     async def select_callback(self, select, interaction):
         pronoun = select.values[0]
          #This will be set to the users place in the pronoun list
@@ -102,11 +104,9 @@ class PronounButtens(discord.ui.View):
         else:
             await interaction.response.send_message(f"Hello {interaction.user.name}!. I will refer to you as {pronoun}.")
 
-
-
-
-        
-
+# --------------------
+# COMMANDS
+# --------------------
 
 @bot.slash_command()
 async def resources(ctx):
