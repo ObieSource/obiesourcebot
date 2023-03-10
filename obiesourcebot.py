@@ -14,7 +14,7 @@ bot = discord.Bot()
 @bot.slash_command(description="Replies with a drop down menu that allows you to choose your pronouns!")
 async def pronoun_picker(ctx):
     print("Command called")
-    button_view = pro_pick.PronounButtens()
+    button_view = pro_pick.PronounButtons()
     await ctx.respond("Choose your pronouns!", view=button_view)
 
 @bot.slash_command()
