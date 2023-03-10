@@ -117,7 +117,7 @@ async def hello(ctx, name: str = None, color: str = None):
     await ctx.respond(f"Hello, {name}! Your favorite color is {color}.")
 
 @bot.slash_command()
-async def pronoun_picker(ctx, pronoun: str = None):
+async def pronoun_picker(ctx):
     button_view = PronounButtens()
     await ctx.respond("Choose your pronouns!", view=button_view)
 
