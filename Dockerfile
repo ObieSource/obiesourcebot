@@ -1,5 +1,5 @@
 FROM python:3
-
+MAINTAINER Nghi Nguyen <nnguyen@oberlin.edu>
 # Environment variables
 ENV OBIESOURCETOKEN=<TOKEN GOES HERE>
 # Create directory
