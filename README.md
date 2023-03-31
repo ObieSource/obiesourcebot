@@ -14,7 +14,7 @@ python3.11 -m venv venv
 venv/bin/pip3 install -r requirements.txt
 ```
 
-Or, if you have trouble running python venv, you can choose to run Obiesourcebot on Docker:
+Or, if you have trouble running python venv, you can choose to run Obiesourcebot on Docker, all you need is having Docker or Docker Desktop installed:
 
 ```bash
 docker build -t obiesourcebot .
