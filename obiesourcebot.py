@@ -6,14 +6,12 @@ import pronoun_picker as pro_pick
 import discord
 
 token = config.BOT_TOKEN
-#A list of all pronouns. The first indecy refers to a user. The second indicy will be of size 2 where 0 is the user id and 1 is the pronoun.
 
 bot = discord.Bot()
 
 
 @bot.slash_command(description="Replies with a drop down menu that allows you to choose your pronouns!")
 async def pronoun_picker(ctx):
-    print("Command called")
     button_view = pro_pick.PronounButtons()
     await ctx.respond("Choose your pronouns!", view=button_view)
 

@@ -3,11 +3,8 @@
 import sys, os
 import config
 import discord
+from discord.utils import get
 
-token = config.BOT_TOKEN
-#A list of all pronouns. The first indecy refers to a user. The second indicy will be of size 2 where 0 is the user id and 1 is the pronoun.
-
-bot = discord.Bot()
 
 # ---------------------
 # HELPER METHODS
@@ -92,10 +89,34 @@ class PronounButtons(discord.ui.View):
 
         if place_in_pronouns == -1:
             pronouns.append([author_id, pronoun])
+            role = get(interaction.guild.roles, name=pronoun)
+            if role:
+                await interaction.user.add_roles(role.id)
+            else:
+                guild = interaction.guild
+                await guild.create_role(name=pronoun)
+                new_role = get(interaction.guild.roles, name=pronoun)
+                await interaction.user.add_roles(new_role)
+            
             add_pronouns("pronouns.txt", author_id, pronoun)
         else:
-            pronouns[i][1] = pronoun
+            #removes the previous pronoun associated with the user
+            prev_role = get(interaction.guild.roles, name=(pronouns[place_in_pronouns][1]))
+            if prev_role:
+                await interaction.user.remove_roles(prev_role)
+                
+            pronouns[place_in_pronouns][1] = pronoun
             change_existing_pronouns("pronouns.txt", author_id, pronoun)
+
+            #finds the pronoun in roles and adds it to a user
+            role = get(interaction.guild.roles, name=pronoun)
+            if role:
+                await interaction.user.add_roles(role)
+            else:
+                guild = interaction.guild
+                await guild.create_role(name=pronoun)
+                new_role = get(interaction.guild.roles, name=pronoun)
+                await interaction.user.add_roles(new_role)
 
 
         if pronoun == None:
@@ -103,5 +124,6 @@ class PronounButtons(discord.ui.View):
         else:
             await interaction.response.send_message(f"Hello {interaction.user.name}!. I will refer to you as {pronoun}.")
 
+#2 dimentional array. pronouns[][0] is the user ID and pronouns[][1]
 pronouns = []
 initialize_pronouns("pronouns.txt")
